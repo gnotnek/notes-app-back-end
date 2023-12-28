@@ -7,4 +7,4 @@ class AuthenticationError extends ClientError{
     }
 }
 
-moudule.exports = AuthenticationError;
+module.exports = AuthenticationError;
