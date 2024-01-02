@@ -12,11 +12,11 @@ class NotesService{
         this._pool = new Pool();
     }
 
-    async addNote({title, body, tags}){
+    async addNote({title, body, tags, owner}){
         const id = nanoid(16);
         const createdAt = new Date().toISOString();
         const updatedAt = createdAt;
-
+        
         const query = {
             text: 'INSERT INTO notes VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id',
             values: [id, title, body, tags, createdAt, updatedAt, owner],
