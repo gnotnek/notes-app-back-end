@@ -1,10 +1,11 @@
+const autoBind = require('auto-bind');
+
 class UserHandler {
     constructor(service, validator) {
         this._service = service;
         this._validator = validator;
 
-        this.postUserHandler = this.postUserHandler.bind(this);
-        this.getUserByIdHandler = this.getUserByIdHandler.bind(this);
+        autoBind(this);
     }
 
     async postUserHandler(request, h) {
@@ -35,6 +36,19 @@ class UserHandler {
                 user
             }
         }
+    }
+
+    async getUsersByUsernameHandler(request) {
+        const { username = '' } = request.query;
+
+        const users = await this._service.getUsersByUsername(username);
+
+        return {
+            status: 'success',
+            data: {
+                users,
+            },
+        };
     }
 }
 
